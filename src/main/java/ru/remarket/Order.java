@@ -8,6 +8,8 @@ public class Order {
     private Direction direction;
     private long price;
     private long quantity;
+    private DirectionOption directionOption;
+
 
     public String getInstrumentName() {
         return instrumentName;
@@ -44,4 +46,8 @@ public class Order {
     public void partualMatch(long quantity){
         this.quantity -= quantity;
     }
+
+    public DirectionOption getDirectionOption(){return directionOption;}
+
+    public void setDirectionOption(DirectionOption directionOption) {this.directionOption = directionOption;}
 }

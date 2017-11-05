@@ -2,6 +2,9 @@ package ru.remarket;
 
 import java.util.Date;
 
+/**
+ * Created by ENKOVALEV on 03.11.2017.
+ */
 public class Option {
     private String instrumentName;
     private Direction direction;

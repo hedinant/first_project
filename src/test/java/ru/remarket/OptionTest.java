@@ -3,6 +3,10 @@ package ru.remarket;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Created by ENKOVALEV on 03.11.2017.
+ */
+
 public class OptionTest {
 
     @Test
