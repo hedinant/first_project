@@ -16,11 +16,29 @@ public class Glass {
         else
             sellOrders.add(order);
     }
+    // Created by ENKOVALEV on 06.11.2017.
+    public int fetchQuantityOrders() {
+        int quantityOrders = 0;
+        for (Order order : sellOrders)
+            if (order.getDirectionOption() == DirectionOption.NOT_Option) quantityOrders++;
+        for (Order order : buyOrders)
+            if (order.getDirectionOption() == DirectionOption.NOT_Option) quantityOrders++;
+        return quantityOrders;
+    }
+    // Created by ENKOVALEV on 06.11.2017.
+    public int fetchQuantityOption() {
+        int quantityOrders = 0;
+        for (Order order : sellOrders)
+            if (!(order.getDirectionOption() == DirectionOption.NOT_Option)) quantityOrders++;
+        for (Order order : buyOrders)
+            if (!(order.getDirectionOption() == DirectionOption.NOT_Option)) quantityOrders++;
+        return quantityOrders;
+    }
 
     public long fetchMinSellPrice() {
         long minSellPrice = Long.MAX_VALUE;
         for (Order order : sellOrders)
-            if (order.getPrice() < minSellPrice)
+            if ((order.getDirectionOption() == DirectionOption.NOT_Option) && (order.getPrice() < minSellPrice))
                 minSellPrice = order.getPrice();
         return minSellPrice;
     }
@@ -28,7 +46,7 @@ public class Glass {
     public long fetchMaxBuyPrice() {
         long maxBuyPrice = 0;
         for (Order order : buyOrders)
-            if (order.getPrice() > maxBuyPrice)
+            if ((order.getDirectionOption() == DirectionOption.NOT_Option) && (order.getPrice() > maxBuyPrice))
                 maxBuyPrice = order.getPrice();
         return maxBuyPrice;
     }
@@ -69,7 +87,7 @@ public class Glass {
         }
     }
 
-
+    // Created by ENKOVALEV on 05.11.2017.
     public long fetchMinOptionBuyPrice() {
         long minSellPrice = 0;
         for (Order order : buyOrders)
@@ -86,23 +104,20 @@ public class Glass {
         return maxBuyPrice;
     }
 
+    // Created by ENKOVALEV on 05.11.2017.
     public void matchOption() {
         long maxBuyPrice = fetchMaxBuyPrice();
         long minSellPrice = fetchMinSellPrice();
         long minOptionBuyPrice = fetchMinOptionBuyPrice();
         long maxOptionSellPrice = fetchMaxOptionSellPrice();
 
-
         if ((minOptionBuyPrice < minSellPrice) & (maxOptionSellPrice < maxBuyPrice))
             return;
-
-
         if (maxOptionSellPrice < Long.MAX_VALUE) {
             List<Order> buyFills1 = fetchBuyFills(maxBuyPrice);
             List<Order> sellFills1 = fetchSellFills(maxOptionSellPrice);
             doFillMatches(buyFills1, sellFills1);
         }
-
         if (minOptionBuyPrice > 0) {
             List<Order> buyFills2 = fetchBuyFills(minOptionBuyPrice);
             List<Order> sellFills2 = fetchSellFills(minSellPrice);
