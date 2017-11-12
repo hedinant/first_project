@@ -1,15 +1,17 @@
 package ru.remarket;
 
+import java.util.Date;
+
 /**
- * Created by HEDIN on 01.11.2017.
+ * Created by ENKOVALEV on 03.11.2017.
  */
-public class Order {
+public class Option {
     private String instrumentName;
     private Direction direction;
     private long price;
     private long quantity;
-    private DirectionOption directionOption;
-
+    private Date date;
+    private boolean dateCorrect = true;
 
     public String getInstrumentName() {
         return instrumentName;
@@ -43,11 +45,31 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public void partualMatch(long quantity){
+    public void partualMatch(long quantity) {
         this.quantity -= quantity;
     }
 
-    public DirectionOption getDirectionOption(){return directionOption;}
+    public Date getDate() {
+        return date;
+    }
 
-    public void setDirectionOption(DirectionOption directionOption) {this.directionOption = directionOption;}
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setDateCorrect(boolean dateCorrect) {
+        this.dateCorrect = dateCorrect;
+    }
+
+    public boolean getDateCorrect() {
+        return dateCorrect;
+    }
+
+    public long getPtoQ() {
+        if (dateCorrect)
+            return price * quantity;
+    return 0;
+    }
+
+
 }
